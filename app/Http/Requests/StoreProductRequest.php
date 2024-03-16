@@ -2,13 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ProductCategoryEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Spatie\ValidationRules\Rules\Delimited;
-use App\Enums\ProductCategoryEnum;
-use App\Rules\ProductCategory;
 
-class GetProductRequest extends FormRequest
+class StoreProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +24,8 @@ class GetProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order' => ['sometimes', 'required', Rule::in(['asc', 'desc'])],
+            'title' => ['required', 'max:255'],
+            'category' => ['required', Rule::in(array_column(ProductCategoryEnum::cases(), 'value'))]
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProductCategoryEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class ProductFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(20),
-            'category_id' => $this->faker->numberBetween(1,10)
+            'category' => $this->faker->randomElement(ProductCategoryEnum::cases())
         ];
     }
 }

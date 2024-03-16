@@ -14,7 +14,7 @@ class initialSeeder extends Seeder
      * Run the database seeds.
      */
 
-     private $permissions = [
+    private $permissions = [
         'product-list',
         'product-create',
         'product-edit',
