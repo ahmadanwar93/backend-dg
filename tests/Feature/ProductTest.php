@@ -36,7 +36,7 @@ class ProductTest extends TestCase
     {
         $payload = [
             "title" => "This is a new product",
-            "category" => "stationery",
+            "category" => "Stationery",
         ];
 
         $initialProductCount = Product::count();
@@ -47,7 +47,8 @@ class ProductTest extends TestCase
 
     public function test_show_a_product_successful()
     {
-        $response = $this->getJson("api/inventory/1");
+        $product = Product::latest()->first();
+        $response = $this->getJson("api/inventory/{$product->id}");
         $response->assertStatus(200);
     }
 
@@ -62,7 +63,7 @@ class ProductTest extends TestCase
     {
         $payload = [
             "title" => "This is an updated product",
-            "category" => "stationery",
+            "category" => "Stationery",
         ];
 
         $product = Product::latest()->first(); // get the last item 

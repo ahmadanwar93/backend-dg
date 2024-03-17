@@ -59,7 +59,7 @@ class ExtendedProductController extends Controller
         return response()->json(
             [
                 'message' => "The data to be displayed",
-                'data' => ProductResource::collection($products)
+                'data' => ProductResource::collection($products)->resource
             ],
             200
         );

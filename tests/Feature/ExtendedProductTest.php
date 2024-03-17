@@ -27,7 +27,7 @@ class ExtendedProductTest extends TestCase
         $categories = "bazar-ramadan"; // non existent categories
         $user = User::first();
 
-        $response = $this->getJson("api/{$user->id}/inventory");
+        $response = $this->getJson("api/{$user->id}/inventory?category={$categories}");
         $response->assertStatus(422);
         $response->assertJson([
             'message' => 'The product category passed does not exist',
@@ -38,7 +38,7 @@ class ExtendedProductTest extends TestCase
     {
         $payload = [
             "title" => "This is a new product",
-            "category" => "stationery",
+            "category" => "Stationery",
         ];
 
         $user = User::find(1);
@@ -54,7 +54,7 @@ class ExtendedProductTest extends TestCase
     {
         $payload = [
             "title" => "This is a new product",
-            "category" => "stationery",
+            "category" => "Stationery",
         ];
 
         $user = User::find(2);
@@ -68,8 +68,9 @@ class ExtendedProductTest extends TestCase
     public function test_show_a_product_successful_with_permission()
     {
         $user = User::find(2);
+        $product = Product::latest()->first();
         
-        $response = $this->getJson("api/{$user->id}/inventory/1");
+        $response = $this->getJson("api/{$user->id}/inventory/{$product->id}");
         $response->assertStatus(200);
     }
 
@@ -100,7 +101,7 @@ class ExtendedProductTest extends TestCase
     {
         $payload = [
             "title" => "This is an updated product",
-            "category" => "stationery",
+            "category" => "Stationery",
         ];
         $user = User::find(2);
 
@@ -114,7 +115,7 @@ class ExtendedProductTest extends TestCase
     {
         $payload = [
             "title" => "This is an updated product",
-            "category" => "stationery",
+            "category" => "Stationery",
         ];
         $user = User::find(1);
 

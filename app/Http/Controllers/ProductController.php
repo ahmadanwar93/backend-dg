@@ -36,6 +36,16 @@ class ProductController extends Controller
         // default 30 results per page if variables not passed
         $perPage = $request->query('per-page') ? $request->query('per-page') : 30;
 
+        // For pagination
+        // $products = Product::when($categories, function ($q) use ($categories) {
+        //     return $q->whereIn('category', $categories);
+        // })
+        //     ->when($request->query('order'), function ($q) use ($request) {
+        //         // order alphabetically by category name
+        //         return $q->orderBy('category', $request->query('order'));
+        //     })
+        //     ->paginate($perPage);
+
         $products = Product::when($categories, function ($q) use ($categories) {
             return $q->whereIn('category', $categories);
         })
@@ -43,11 +53,14 @@ class ProductController extends Controller
                 // order alphabetically by category name
                 return $q->orderBy('category', $request->query('order'));
             })
-            ->paginate($perPage);
+            ->take(20)
+            ->get();
         return response()->json(
             [
                 'message' => "The data to be displayed",
                 'data' => ProductResource::collection($products)
+                // for pagination
+                // 'data' => ProductResource::collection($products)->resource
             ],
             200
         );

@@ -30,6 +30,7 @@ class PermissionController extends Controller
                 'message' => "The user's permission to be displayed are",
                 'data' => [
                     "user_id" => $userId,
+                    "name" => $user->name,
                     "permissions" => PermissionResource::collection($user->getAllPermissions()) 
                 ]
             ],
