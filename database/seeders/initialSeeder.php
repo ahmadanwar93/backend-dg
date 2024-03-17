@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class initialSeeder extends Seeder
+class InitialSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -53,5 +54,8 @@ class initialSeeder extends Seeder
         // for user 3 which is a free
         $user1 = User::factory()->create();
         $user1->assignRole(['free-role']);
+
+        Product::factory(25)
+            ->create();
     }
 }
